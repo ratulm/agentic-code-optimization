@@ -148,9 +148,14 @@ class EvolutionOrchestrator:
 
     def _create_swarm(
         self,
-        model_id: str = "us.anthropic.claude-sonnet-4-20250514-v1:0",
+        model_id: str = None,
     ) -> Swarm:
-        """Create and configure the Swarm with Researcher and Supervisor agents."""
+        """Create and configure the Swarm with Researcher and Supervisor agents.
+
+        Args:
+            model_id: Optional model ID to use. If None, uses MODEL_ID environment
+                variable or defaults based on MODEL environment variable.
+        """
 
         researcher = create_researcher_agent(model_id=model_id)
         supervisor = create_supervisor_agent(model_id=model_id)

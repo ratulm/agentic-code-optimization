@@ -8,8 +8,10 @@ This module defines the Researcher Agent, which is responsible for:
 - Collaborating with the Supervisor Agent
 """
 
+import os
 from strands import Agent
 from strands.models import BedrockModel
+from strands.models.gemini import GeminiModel
 from strands.agent.conversation_manager import SlidingWindowConversationManager
 
 from ..tools.researcher_tools import (
@@ -171,23 +173,37 @@ Your goal is not just to improve the program, but to understand *why* improvemen
 """
 
 
-def create_researcher_agent(
-    model_id: str = "us.anthropic.claude-sonnet-4-20250514-v1:0",
-    window_size: int = 50
-) -> Agent:
+def create_researcher_agent(model_id: str = None, window_size: int = 50) -> Agent:
     """Create and configure the Researcher Agent.
-    
+
     Args:
-        model_id: The Bedrock model ID to use (default: Claude Sonnet 4).
+        model_id: The model ID to use. If None, uses MODEL_ID environment variable
+            or defaults to Claude Sonnet 4 for Bedrock.
         window_size: Maximum number of messages to retain in conversation
             history (default: 50). This ensures the agent maintains context across
             iterations while preventing context overflow.
-    
+
     Returns:
         A configured Agent instance ready for use in the evolution system.
     """
-    # Create the Bedrock model
-    model = BedrockModel(model_id=model_id)
+    # Determine model type from environment variable (default: bedrock)
+    model_type = os.getenv("MODEL_PROVIDER", "bedrock").lower()
+
+    # Determine model ID
+    if model_id is None:
+        model_id = os.getenv("MODEL_ID")
+        if model_id is None:
+            # Set default based on model type
+            if model_type == "gemini":
+                model_id = "gemini-2.5-flash"
+            else:
+                model_id = "us.anthropic.claude-sonnet-4-20250514-v1:0"
+
+    # Create the appropriate model based on type
+    if model_type == "gemini":
+        model = GeminiModel(model_id=model_id)
+    else:
+        model = BedrockModel(model_id=model_id)
 
     # Create a conversation manager to retain context across iterations
     # Using SlidingWindowConversationManager to maintain recent history

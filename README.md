@@ -4,11 +4,15 @@ I set up code evolution as a two-agent swarm with researcher and supervisor agen
 
 ## Running the code
 
-You need access to AWS Bedrock, which is hardcoded as the model endpoint. The model being used is "us.anthropic.claude-sonnet-4-20250514-v1:0". These should be easy to change if needed as strands supports most inference providers.
+The code currently runs model providers AWS Bedrock and Google Gemini (which should be easy to extend as strands supports many model providers). Pick your provider using the MODEL_PROVIDER environment variable. 
 
-Run code using
+Run code using something like:
 
-`AWS_PROFILE=<your-aws-profile-name> python code_evolution.py --initial-program examples/sorting_optimization/initial_program.py --evaluator examples/sorting_optimization/evaluator.py  --iterations 10`
+`MODEL_PROVIDER=bedrock AWS_PROFILE=<your-aws-profile-name> python code_evolution.py --initial-program examples/sorting_optimization/initial_program.py --evaluator examples/sorting_optimization/evaluator.py  --iterations 10`
+
+For Gemini, `MODEL_PROVIDER=gemini GOOGLE_API_KEY=<your-google-api-key>`. You can specify the model using the MODEL_ID environment variable. The defaults are "us.anthropic.claude-sonnet-4-20250514-v1:0" for Bedrock and gemini-2.5-flash for Gemini. 
+
+Ignore `opentelemetry.context - ERROR - Failed to detach context` errors on the console. This is an opentelemetry and strands swarms interaction. 
 
 The command above will produce output in examples/sorting_optimization/evolution_output_{timestamp}
 
@@ -25,6 +29,8 @@ As I could run the examples on both openevolve and my code, I was curious how th
 After cloning openevolve, I ran it with a command like the following: 
 
 `OPENAI_API_KEY=<your-openai-compatible-key> python openevolve-run.py examples/circle_packing_with_artifacts/initial_program.py examples/circle_packing_with_artifacts/evaluator.py --config examples/circle_packing_with_artifacts/config_phase_1.yaml --iterations 100`
+
+The OPENAI_API_KEY should be GOOGLE_API_KEY because openevolve will use the openai compatible endpoint that Google offers. The config file controls which models and providers are used. 
 
 I then plotted a comparison with openevolve using:
 
