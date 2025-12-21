@@ -3,7 +3,7 @@ from typing import Any, Optional
 
 @dataclass
 class EvolveBlock:
-    """Represents a code block marked for evolution.
+    """Represents a code block marked for optimization.
     
     Attributes:
         start_line: Line number where the block starts (inclusive).

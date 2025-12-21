@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-Plot metrics from evolution output programs.
+Plot metrics from optimization output programs.
 Usage: 
-  python plot_evolution_metrics.py [path_to_programs_folder] [--metric1 METRIC] [--metric2 METRIC] [--openevolve PATH]
+  python plot_optimization_metrics.py [path_to_programs_folder] [--metric1 METRIC] [--metric2 METRIC] [--openevolve PATH]
   
 Examples:
-  python plot_evolution_metrics.py programs/
-  python plot_evolution_metrics.py programs/ --metric1 combined_score
-  python plot_evolution_metrics.py programs/ --metric1 combined_score --metric2 eval_time
-  python plot_evolution_metrics.py programs/ --openevolve /Users/mratul/git/openevolve/examples/function_minimization/openevolve_output/checkpoints/checkpoint_25/programs
+  python plot_optimization_metrics.py programs/
+  python plot_optimization_metrics.py programs/ --metric1 combined_score
+  python plot_optimization_metrics.py programs/ --metric1 combined_score --metric2 eval_time
+  python plot_optimization_metrics.py programs/ --openevolve /Users/mratul/git/openevolve/examples/function_minimization/openevolve_output/checkpoints/checkpoint_25/programs
 """
 
 import argparse
@@ -252,7 +252,7 @@ def plot_metrics(versions, all_metrics, programs_dir, metric1='combined_score', 
             lines = lines + line_oe2 + line_oe2_best
     
     # Add title
-    plt.title('Evolution Metrics Across Program Versions', fontsize=14, fontweight='bold')
+    plt.title('Optimization Metrics Across Program Versions', fontsize=14, fontweight='bold')
     
     # Add legend
     labels = [l.get_label() for l in lines]
@@ -307,18 +307,18 @@ def plot_metrics(versions, all_metrics, programs_dir, metric1='combined_score', 
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Plot metrics from evolution output programs',
+        description='Plot metrics from optimization output programs',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python plot_evolution_metrics.py programs/
-  python plot_evolution_metrics.py programs/ --metric1 combined_score
-  python plot_evolution_metrics.py programs/ --metric1 combined_score --metric2 eval_time
-  python plot_evolution_metrics.py programs/ --openevolve /path/to/openevolve/checkpoints/checkpoint_25/programs
+  python plot_optimization_metrics.py programs/
+  python plot_optimization_metrics.py programs/ --metric1 combined_score
+  python plot_optimization_metrics.py programs/ --metric1 combined_score --metric2 eval_time
+  python plot_optimization_metrics.py programs/ --openevolve /path/to/openevolve/checkpoints/checkpoint_25/programs
         """
     )
     parser.add_argument('programs_dir', nargs='?', 
-                        default='local-playground/evolution_output_20251218_003219/programs',
+                        default='local-playground/optimization_output_20251218_003219/programs',
                         help='Path to programs directory')
     parser.add_argument('--metric1', default='combined_score',
                         help='Primary metric to plot (default: combined_score)')

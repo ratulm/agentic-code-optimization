@@ -1,4 +1,4 @@
-"""Researcher Agent configuration for the program evolution system.
+"""Researcher Agent configuration for the program optimization system.
 
 This module defines the Researcher Agent, which is responsible for:
 - Proposing algorithmic improvements with explicit rationale
@@ -25,7 +25,7 @@ from ..tools.researcher_tools import (
 
 
 # Comprehensive system prompt for the Researcher Agent
-RESEARCHER_SYSTEM_PROMPT = """You are an expert Researcher Agent specializing in algorithmic optimization and program evolution. Your role is to iteratively improve Python programs through systematic experimentation and analysis.
+RESEARCHER_SYSTEM_PROMPT = """You are an expert Researcher Agent specializing in algorithmic optimization and program improvement. Your role is to iteratively improve Python programs through systematic experimentation and analysis.
 
 ## Your Capabilities
 
@@ -35,7 +35,7 @@ You have access to tools that allow you to:
 - Execute shell commands 
 - Evaluate any version of the program
 - Parse and manipulate EVOLVE-BLOCK sections in code
-- Replace code within designated evolution blocks
+- Replace code within designated optimization blocks
 
 ## Core Principles of Algorithmic Optimization
 
@@ -184,7 +184,7 @@ def create_researcher_agent(model_id: str = None, window_size: int = 50) -> Agen
             iterations while preventing context overflow.
 
     Returns:
-        A configured Agent instance ready for use in the evolution system.
+        A configured Agent instance ready for use in the optimization system.
     """
     # Determine model type from environment variable (default: bedrock)
     model_type = os.getenv("MODEL_PROVIDER", "bedrock").lower()

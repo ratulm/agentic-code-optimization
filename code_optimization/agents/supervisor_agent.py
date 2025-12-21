@@ -1,4 +1,4 @@
-"""Supervisor Agent configuration for the program evolution system.
+"""Supervisor Agent configuration for the program optimization system.
 
 This module defines the Supervisor Agent, which is responsible for:
 - Observing the Researcher's work and reasoning
@@ -154,7 +154,7 @@ Recognize both successes and areas for improvement.
 
 ## Context Awareness
 
-You have access to the complete history of the evolution process:
+You have access to the complete history of the optimization process:
 - All previous hypotheses and implementations
 - Evaluation results and metrics from each iteration
 - The Researcher's findings and analyses
@@ -218,7 +218,7 @@ def create_supervisor_agent(model_id: str = None, window_size: int = 50) -> Agen
             iterations while preventing context overflow.
 
     Returns:
-        A configured Agent instance ready for use in the evolution system.
+        A configured Agent instance ready for use in the optimization system.
 
     Note:
         The Supervisor Agent is configured with NO tools, as it operates purely

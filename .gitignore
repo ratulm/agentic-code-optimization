@@ -3,7 +3,7 @@
 __pycache__/
 
 # code output logs
-evolution_output_*/
+optimization_output_*/
 
 # Mac
 .DS_Store

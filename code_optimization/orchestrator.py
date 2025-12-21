@@ -1,7 +1,7 @@
-"""Evolution Orchestrator for the program evolution system.
+"""Optimization Orchestrator for the program optimization system.
 
 This module implements the main orchestration logic that coordinates the
-evolution process across multiple iterations. It manages the Swarm, tracks
+optimization process across multiple iterations. It manages the Swarm, tracks
 results, and extracts insights from agent interactions.
 """
 
@@ -20,10 +20,10 @@ from strands.multiagent import Swarm
 logger = logging.getLogger(__name__)
 
 
-class EvolutionOrchestrator:
-    """Orchestrates a single program evolution using a Swarm.
+class OptimizationOrchestrator:
+    """Orchestrates a single program optimization using a Swarm.
 
-    The orchestrator manages the evolution workflow:
+    The orchestrator manages the optimization workflow:
     1. Initialize components (Swarm, ProgramManager, Evaluator)
     2. Execute the Swarm to get proposed changes
     3. Extract rationale and findings from agent messages
@@ -39,7 +39,7 @@ class EvolutionOrchestrator:
         evaluator_path: str,
         output_dir: str,
     ):
-        """Initialize the Evolution Orchestrator.
+        """Initialize the Optimization Orchestrator.
 
         Args:
             initial_program_path: Path to the initial program with EVOLVE-BLOCKs
@@ -56,7 +56,7 @@ class EvolutionOrchestrator:
         self.output_dir = Path(output_dir)
 
         logger.info(
-            "Initialized EvolutionOrchestrator: program=%s, evaluator=%s, output=%s",
+            "Initialized OptimizationOrchestrator: program=%s, evaluator=%s, output=%s",
             initial_program_path,
             evaluator_path,
             output_dir,
@@ -77,26 +77,26 @@ class EvolutionOrchestrator:
         logger.info("Copied initial program to %s", dest_path)
 
     def run(self):
-        """Execute a single evolution using the Swarm.
+        """Execute a single optimization using the Swarm.
 
         Returns:
-            EvolutionResults containing the evolved program and evaluation
+            OptimizationResults containing the optimized program and evaluation
         """
-        logger.info("Starting evolution process")
+        logger.info("Starting optimization process")
         start_time = time.time()
 
         try:
-            logger.info("Running evolution with program: %s", self.initial_program_path)
+            logger.info("Running optimization with program: %s", self.initial_program_path)
 
             initial_program_name = f"v00_{Path(self.initial_program_path).name}"
             self._setup_output_directory(initial_program_name)
 
             # Build context for the Swarm
-            context = self._build_evolution_context(initial_program_name)
+            context = self._build_optimization_context(initial_program_name)
             logger.debug("Context built with %d characters", len(context))
 
             # Set up streaming logger for real-time conversation logging
-            log_path = self.output_dir / "conversations" / "evolution.txt"
+            log_path = self.output_dir / "conversations" / "optimization.txt"
             streaming_logger = StreamingConversationLogger(log_path)
 
             swarm = self._create_swarm()
@@ -117,10 +117,10 @@ class EvolutionOrchestrator:
             streaming_logger.finalize()
 
         except Exception as e:
-            logger.exception("Evolution failed: %s", str(e))
+            logger.exception("Optimization failed: %s", str(e))
             raise
 
-    def _build_evolution_context(self, initial_program_name) -> str:
+    def _build_optimization_context(self, initial_program_name) -> str:
         """Build context for the Swarm.
 
         Args:

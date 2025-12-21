@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""CLI entry point for the program evolution system.
+"""CLI entry point for the program optimization system.
 
 This script provides the command-line interface for running the
-program evolution system. It handles argument parsing, input validation,
+program optimization system. It handles argument parsing, input validation,
 orchestrator initialization, and results display.
 """
 
@@ -13,8 +13,8 @@ import sys
 import time
 from pathlib import Path
 
-from code_evolution.orchestrator import EvolutionOrchestrator
-from code_evolution.core.program_manager import ProgramManager
+from code_optimization.orchestrator import OptimizationOrchestrator
+from code_optimization.core.program_manager import ProgramManager
 
 
 def configure_logging():
@@ -70,11 +70,11 @@ def parse_arguments():
         argparse.Namespace: Parsed arguments.
     """
     parser = argparse.ArgumentParser(
-        description='Program Evolution System - Iteratively improve Python programs',
+        description='Program Optimization System - Iteratively improve Python programs',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Example usage:
-  python code_evolution.py \\
+  python code_optimization.py \\
       --initial-program examples/function_minimization/initial_program.py \\
       --evaluator examples/function_minimization/evaluator.py \\
       --iterations 10 \\
@@ -108,7 +108,7 @@ that returns metrics including 'combined_score'.
         '--iterations',
         type=int,
         required=True,
-        help='Number of evolution iterations to run'
+        help='Number of optimization iterations to run'
     )
     
     parser.add_argument(
@@ -193,17 +193,17 @@ def create_default_output_dir(initial_program_path: str) -> str:
     """
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     program_dir = Path(initial_program_path).parent
-    output_dir = str(program_dir / f"evolution_output_{timestamp}")
+    output_dir = str(program_dir / f"optimization_output_{timestamp}")
     logger.info("Using default output directory: %s", output_dir)
     return output_dir
 
 
 def main():
-    """Main entry point for the evolution system."""
+    """Main entry point for the optimization system."""
     # Parse arguments
     args = parse_arguments()
 
-    logger.info("Starting Program Evolution")
+    logger.info("Starting Program Optimization")
     logger.info("=" * 60)
 
     # Validate inputs
@@ -223,15 +223,15 @@ def main():
 
     # Initialize and run the orchestrator
     try:
-        logger.info("Initializing Evolution Orchestrator...")
-        orchestrator = EvolutionOrchestrator(
+        logger.info("Initializing Optimization Orchestrator...")
+        orchestrator = OptimizationOrchestrator(
             initial_program_path=args.initial_program,
             evaluator_path=args.evaluator,
             num_iterations=args.iterations,
             output_dir=output_dir
         )
 
-        logger.info("Starting evolution process...")
+        logger.info("Starting optimization process...")
         logger.info("=" * 60)
 
         orchestrator.run()
@@ -241,13 +241,13 @@ def main():
         sys.exit(0)
 
     except KeyboardInterrupt:
-        logger.warning("\nEvolution interrupted by user")
+        logger.warning("\nOptimization interrupted by user")
         sys.exit(130)  # Standard exit code for SIGINT
 
     except Exception as e:
-        logger.exception("Evolution failed with error: %s", str(e))
+        logger.exception("Optimization failed with error: %s", str(e))
         print("\n" + "=" * 70, file=sys.stderr)
-        print("ERROR: Evolution failed", file=sys.stderr)
+        print("ERROR: Optimization failed", file=sys.stderr)
         print("=" * 70, file=sys.stderr)
         print(f"\n{str(e)}\n", file=sys.stderr)
         print("Check the logs above for more details.", file=sys.stderr)

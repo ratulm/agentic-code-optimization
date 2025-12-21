@@ -1,4 +1,4 @@
-"""Tool functions for the program evolution system."""
+"""Tool functions for the program optimization system."""
 
 from .researcher_tools import (
     read_file,
