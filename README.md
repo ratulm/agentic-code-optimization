@@ -1,4 +1,4 @@
-This is a "throwaway" repo created to play with code optimization using the [strands](https://github.com/strands-agents) agents SDK.
+I created this repo to play with code optimization using the [strands](https://github.com/strands-agents) agents SDK.
 
 I set up code optimization as a two-agent swarm with researcher and supervisor agents. The researcher modifies and evaluates the code and reports its experience to the supervisor. The supervisor provides guidance without ever looking at the code. Such a setup has been used by other multi-agent systems, including recently, by [Glia](https://arxiv.org/pdf/2510.27176). 
 
