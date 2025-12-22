@@ -2,6 +2,8 @@ This is a "throwaway" repo created to play with code optimization using the [str
 
 I set up code optimization as a two-agent swarm with researcher and supervisor agents. The researcher modifies and evaluates the code and reports its experience to the supervisor. The supervisor provides guidance without ever looking at the code. Such a setup has been used by other multi-agent systems, including recently, by [Glia](https://arxiv.org/pdf/2510.27176). 
 
+The inputs to the optimizer are setup like [openevolve](https://github.com/algorithmicsuperintelligence/openevolve) (which in turn borrows from [AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)). You supply the code to optimize and an evaluation function. 
+
 ## Running the code
 
 The code currently runs model providers AWS Bedrock and Google Gemini (which should be easy to extend as strands supports many model providers). Pick your provider using the MODEL_PROVIDER environment variable. 
