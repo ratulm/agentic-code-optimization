@@ -12,9 +12,7 @@ Run code using something like:
 
 `MODEL_PROVIDER=bedrock AWS_PROFILE=<your-aws-profile-name> python code_optimization.py --initial-program examples/sorting_optimization/initial_program.py --evaluator examples/sorting_optimization/evaluator.py  --iterations 10`
 
-For Gemini, `MODEL_PROVIDER=gemini GOOGLE_API_KEY=<your-google-api-key>`. You can specify the model using the MODEL_ID environment variable. The defaults are "us.anthropic.claude-sonnet-4-20250514-v1:0" for Bedrock and gemini-2.5-flash for Gemini. 
-
-Ignore `opentelemetry.context - ERROR - Failed to detach context` errors on the console. This is an opentelemetry and strands swarms interaction. 
+For Gemini, `MODEL_PROVIDER=gemini GOOGLE_API_KEY=<your-google-api-key>`. You can specify the model using the MODEL_ID environment variable. The defaults are "global.anthropic.claude-sonnet-4-5-20250929-v1:0" for Bedrock and "gemini-2.5-flash" for Gemini. 
 
 The command above will produce output in examples/sorting_optimization/optimization_output_{timestamp}
 
